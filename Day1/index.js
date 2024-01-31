@@ -76,7 +76,7 @@ const javaQuizArray = [
   const answerElm=document.querySelectorAll(".answer");
   const [questionElm,option1,option2,option3,option4]=document.querySelectorAll(".question,#option1,#option2,#option3,#option4");
   const submitElm=document.querySelector("#submit");
-  const score=0;
+  let score=0;
   let current=0;
 
 
@@ -103,14 +103,23 @@ const javaQuizArray = [
 
  submitElm.addEventListener("click",()=>{
     const selectedIndex=getSelectedIndex();
-    console.log(selectedIndex);
+    // console.log(selectedIndex);
+    if(selectedIndex===javaQuizArray[current].correctAnswerIndex){
+      score++;
+    }
+    console.log(score);
     current++;
     if(current<javaQuizArray.length){
         deselectOption();
         loadQuiz();
     }
-
-
+    if(current===javaQuizArray.length){
+      const quizzElm=document.getElementById("quizz");
+      const resultElm=document.getElementById("score");
+      quizzElm.style.display="none";
+      resultElm.style.display="block";
+      resultElm.innerText=`Congratulations! you have completed the quizz your score is ${score}/${javaQuizArray.length}.`
+    }
  });
 
 loadQuiz()
